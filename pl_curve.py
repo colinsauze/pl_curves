@@ -63,37 +63,67 @@ def remove_zeros(df):
 def sort_bins(df):
     '''
     Sort each bin by its relative abundance,
-    calculates cumulative relative abundance and cumulative proportional TRFs
     @param df - the data frame to check
-    @return A list of dataframes, each dataframe contains the step names,
-    cumulative relative abundance and cumulative proportional TRFs.
+    @return A list of dataframes, each dataframe contains a single sample
     '''
 
     # split each column into its own dataframe
     samples = []
-    j = 0
+
     for col in df.columns:
 
         # sort the bins in descending order, convert result to a new dataframe
         data = df.loc[:, col].sort_values(ascending=False).to_frame()
+        samples.append(data)
+    return samples
 
-        cum_prop_trfs = []
+
+def calculate_cumulative_relative_abundance(samples):
+    '''
+    calculates cumulative relative abundance
+    @param samples - a list of dataframes
+    @return a new list of dataframes, each one will have an additional column
+    'cuml rel abund' with the cumulative relative abundance.
+    '''
+
+    samples2 = []
+    for sample in samples:
         cum_rel_abund = []
 
         # calculate cumulative relative abundance and cumulative prop trfs
-        for i in range(0, len(data)):
-            cum_prop_trfs.append((i+1) / len(data))
+        for i in range(0, len(sample)):
             if i > 0:
-                cum_rel_abund.append(data.iloc[i][0] + cum_rel_abund[i-1])
+                cum_rel_abund.append(sample.iloc[i][0] + cum_rel_abund[i-1])
             else:
-                cum_rel_abund.append(data.iloc[i][0])
+                cum_rel_abund.append(sample.iloc[i][0])
 
-        data['Cum Prop TRFs'] = cum_prop_trfs
-        data['Cum Rel Abund'] = cum_rel_abund
+        sample['Cum Rel Abund'] = cum_rel_abund
 
-        samples.append(data)
-        j = j + 1
-    return samples
+        samples2.append(sample)
+
+    return samples2
+
+
+def calculate_cumulative_prop_trf(samples):
+    '''
+    calculates cumulative prop trf
+    @param samples - a list of dataframes
+    @return a new list of dataframes, each one will have an additional column
+    'cum prop trfs' with the cumulative prop trfs.
+    '''
+    samples2 = []
+    for sample in samples:
+        cum_prop_trfs = []
+
+        # calculate cumulative prop trfs
+        for i in range(0, len(sample)):
+            cum_prop_trfs.append((i+1) / len(sample))
+
+        sample['Cum Prop TRFs'] = cum_prop_trfs
+
+        samples2.append(sample)
+
+    return samples2
 
 
 def remove_cumulative_abundance_over_one(samples):
@@ -198,13 +228,16 @@ def run():
     if check_columns(df):
         df = remove_zeros(df)
         samples = sort_bins(df)
-        make_graph(samples, "enrichment_graph.png")
+        samples = calculate_cumulative_relative_abundance(samples)
         samples = remove_cumulative_abundance_over_one(samples)
+        samples = calculate_cumulative_prop_trf(samples)
+        make_graph(samples, "enrichment__no_empty_bins_graph.png")
         make_gini_file(samples, "enrichment_gini.tsv")
+        return samples
     else:
         sys.stderr.write("Error: columns don't sum to 1\n")
         sys.exit(1)
 
 
 if __name__ == "__main__":
-    run()
+    samples = run()
