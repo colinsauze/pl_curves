@@ -1,12 +1,21 @@
 import pandas as pd
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
+import sys
+import matplotlib
 matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 
 def calculate_gini(x):
-    # from https://stackoverflow.com/questions/39512260/calculating-gini-coefficient-in-python-numpy/39513799#39513799
+    '''
+    calculates the gini coefficient
+
+    code from:
+    stackoverflow.com/questions/39512260/calculating-gini-coefficient-in-python-numpy/39513799
+
+    @param x - the list of data to calculate the gini coefficient on
+    @return the gini coefficient for this data
+    '''
     # (Warning: This is a concise implementation, but it is O(n**2)
     # in time and memory, where n = len(x).  *Don't* pass in huge
     # samples!)
@@ -61,14 +70,17 @@ def sort_bins(df):
     '''
 
     # split each column into its own dataframe
-    steps = []
+    samples = []
     j = 0
     for col in df.columns:
+
+        # sort the bins in descending order, convert result to a new dataframe
         data = df.loc[:, col].sort_values(ascending=False).to_frame()
 
         cum_prop_trfs = []
         cum_rel_abund = []
 
+        # calculate cumulative relative abundance and cumulative prop trfs
         for i in range(0, len(data)):
             cum_prop_trfs.append((i+1) / len(data))
             if i > 0:
@@ -79,57 +91,65 @@ def sort_bins(df):
         data['Cum Prop TRFs'] = cum_prop_trfs
         data['Cum Rel Abund'] = cum_rel_abund
 
-        steps.append(data)
+        samples.append(data)
         j = j + 1
-    return steps
+    return samples
 
 
-def remove_cumulative_abundance_over_one(steps):
+def remove_cumulative_abundance_over_one(samples):
     '''
     deletes all but the first item where cumulative abundance is greater than 1
-    @param steps - a list of dataframes each dataframe should contain 3 columns
+    @param samples - a list of dataframes each dataframe should have 3 columns
     one with the name of the step, Cum Prop TRFs and Cum Rel Abund.
     @return a modified version of the list with all but the first row where
     cumulative abundance is greater than 1.
     '''
-    steps2 = []
-    for col in steps:
-        i = 0
+    samples2 = []
+
+    # get each sample in turn
+    for col in samples:
         found = False
         new_frame = col
+
+        # go through each row and check for values over 1
         for row_index in col.index:
             val = col["Cum Rel Abund"][row_index]
             # if we've already found the first row with a value of 1,
-            # start removing rows
+            # then start removing rows
             if found:
+                # remove the row and save the resulting frame back to new_frame
                 new_frame = new_frame.drop(row_index)
             # look for values over 1
             # floating point representation means it might not be exactly 1
             elif val > 0.999999:
                 found = True
-        steps2.append(new_frame)
-        i = i + 1
-    steps = steps2
-    return steps2
+        # add the new reduced dataframe to a list to replace samples
+        samples2.append(new_frame)
+
+    return samples2
 
 
-def make_outputs(steps, graph_file, gini_file):
+def make_outputs(samples, graph_file, gini_file):
     '''
     Makes a graph and calculates the Gini coefficients
-    @param steps - a list of dataframes, each dataframe should contain 3
+    @param samples - a list of dataframes, each dataframe should contain 3
     columns one with the name of the step, Cum Prop TRFs and Cum Rel Abund.
     @param graph_file - Name of the file to save the graph to
     @param gini_file - Name of the file to save the gini coefficient data to
     '''
     titles = []
-    for col in steps:
+    for col in samples:
         titles.append(col.columns[0])
     # make an empty data frame for the gini coefficients
-    gini_df = pd.DataFrame(columns=['Gini', 'Corrected Gini', 'n'], index=titles)
+    gini_df = pd.DataFrame(columns=['Gini', 'Corrected Gini', 'n'],
+                           index=titles)
 
     # make graph
-    for col in steps:
+    for col in samples:
+        # get the title of current sample from the heading of its 1st column
         title = col.columns[0]
+
+        # plot cumulative prop trfs vs cumulative relative abundance
         plt.plot(col.loc[:, 'Cum Prop TRFs'], col.loc[:, 'Cum Rel Abund'],
                  label=title)
         plt.ylabel("Cumulative Relative Abundance")
@@ -138,26 +158,38 @@ def make_outputs(steps, graph_file, gini_file):
         plt.legend()
         plt.savefig(graph_file)
 
-        # calculate gini coefficient
+        # calculate gini coefficient and corrected gini (g * (n/n-1))
         gini = calculate_gini(col.iloc[:, 0])
         corrected_gini = gini * (len(col) / (len(col)-1))
+
+        # add gini coefficients into a dataframe for saving the result
         gini_df.loc[title, 'Gini'] = gini
         gini_df.loc[title, 'Corrected Gini'] = corrected_gini
         gini_df.loc[title, 'n'] = len(col)
 
     print(gini_df)
+    # save the gini coefficients to a file
     gini_df.to_csv(gini_file, sep='\t')
 
 
 def run():
+    '''
+    runs everything
+    **** change this function to alter filenames ****
+    '''
+
     filename = 'Enrichment_data_trimmed_tab.txt'
     df = pd.read_csv(filename, delimiter='\t', index_col='Bin')
 
+    # check all columns sum to 1, if so proceed and calculate/graph
     if check_columns(df):
         df = remove_zeros(df)
-        steps = sort_bins(df)
-        steps = remove_cumulative_abundance_over_one(steps)
-        make_outputs(steps, "enrichment_graph.png", "enrichment_gini.tsv")
+        samples = sort_bins(df)
+        samples = remove_cumulative_abundance_over_one(samples)
+        make_outputs(samples, "enrichment_graph.png", "enrichment_gini.tsv")
+    else:
+        sys.stderr.write("Error: columns don't sum to 1\n")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
