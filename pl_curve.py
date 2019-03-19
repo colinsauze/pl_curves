@@ -28,9 +28,9 @@ def check_columns(df):
     '''
     for col in df.columns:
         total = sum(df.loc[:, col])
-        print(col, "total=", total)
+        # print(col, "total=", total)
         if total < 0.9999 or total > 1.0001:
-            print("Error column ", col, "doesn't sum to 1.0")
+            # print("Error column ", col, "doesn't sum to 1.0")
             return False
     return True
 
@@ -45,7 +45,7 @@ def remove_zeros(df):
     for row_index in df.index:
         total = sum(df.loc[row_index])
         if total == 0:
-            print("removing bin", row_index, "as its empty")
+            # print("removing bin", row_index, "as its empty")
             df = df.drop(row_index)
 
     return df
