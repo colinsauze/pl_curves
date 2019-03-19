@@ -129,20 +129,13 @@ def remove_cumulative_abundance_over_one(samples):
     return samples2
 
 
-def make_outputs(samples, graph_file, gini_file):
+def make_graph(samples, filename):
     '''
-    Makes a graph and calculates the Gini coefficients
+    Makes a graph
     @param samples - a list of dataframes, each dataframe should contain 3
     columns one with the name of the step, Cum Prop TRFs and Cum Rel Abund.
-    @param graph_file - Name of the file to save the graph to
-    @param gini_file - Name of the file to save the gini coefficient data to
+    @param filename - Name of the file to save the graph to
     '''
-    titles = []
-    for col in samples:
-        titles.append(col.columns[0])
-    # make an empty data frame for the gini coefficients
-    gini_df = pd.DataFrame(columns=['Gini', 'Corrected Gini', 'n'],
-                           index=titles)
 
     # make graph
     for col in samples:
@@ -156,7 +149,27 @@ def make_outputs(samples, graph_file, gini_file):
         plt.xlabel("Cumulative Prop TRF")
         plt.grid()
         plt.legend()
-        plt.savefig(graph_file)
+        plt.savefig(filename)
+
+
+def make_gini_file(samples, gini_file):
+    '''
+    Calculates the Gini coefficients and saves them to a TSV file
+    @param samples - a list of dataframes, each dataframe should contain 3
+    columns one with the name of the step, Cum Prop TRFs and Cum Rel Abund.
+    @param gini_file - Name of the file to save the gini coefficient data to
+    '''
+    titles = []
+    for col in samples:
+        titles.append(col.columns[0])
+    # make an empty data frame for the gini coefficients
+    gini_df = pd.DataFrame(columns=['Gini', 'Corrected Gini', 'n'],
+                           index=titles)
+
+    # make graph
+    for col in samples:
+        # get the title of current sample from the heading of its 1st column
+        title = col.columns[0]
 
         # calculate gini coefficient and corrected gini (g * (n/n-1))
         gini = calculate_gini(col.iloc[:, 0])
@@ -185,8 +198,9 @@ def run():
     if check_columns(df):
         df = remove_zeros(df)
         samples = sort_bins(df)
+        make_graph(samples, "enrichment_graph.png")
         samples = remove_cumulative_abundance_over_one(samples)
-        make_outputs(samples, "enrichment_graph.png", "enrichment_gini.tsv")
+        make_gini_file(samples, "enrichment_gini.tsv")
     else:
         sys.stderr.write("Error: columns don't sum to 1\n")
         sys.exit(1)
