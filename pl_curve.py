@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 import sys
+import argparse
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
 
 def calculate_gini(x):
     '''
@@ -215,14 +215,13 @@ def make_gini_file(samples, gini_file):
     gini_df.to_csv(gini_file, sep='\t')
 
 
-def run():
+def run(input_file, graph_file, output_file):
     '''
     runs everything
     **** change this function to alter filenames ****
     '''
 
-    filename = 'Enrichment_data_trimmed_tab.txt'
-    df = pd.read_csv(filename, delimiter='\t', index_col='Bin')
+    df = pd.read_csv(input_file, delimiter='\t', index_col='Bin')
 
     # check all columns sum to 1, if so proceed and calculate/graph
     if check_columns(df):
@@ -231,8 +230,8 @@ def run():
         samples = calculate_cumulative_relative_abundance(samples)
         samples = remove_cumulative_abundance_over_one(samples)
         samples = calculate_cumulative_prop_trf(samples)
-        make_graph(samples, "enrichment__no_empty_bins_graph.png")
-        make_gini_file(samples, "enrichment_gini.tsv")
+        make_graph(samples, graph_file)
+        make_gini_file(samples, output_file)
         return samples
     else:
         sys.stderr.write("Error: columns don't sum to 1\n")
@@ -240,4 +239,20 @@ def run():
 
 
 if __name__ == "__main__":
-    samples = run()
+    # parse command line arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('inputfile')
+    parser.add_argument('-g', '--graph', help='Graph file name',
+                        default='graph.png', required=False)
+    parser.add_argument('-o', '--output', help='Output data file name',
+                        required=False)
+
+    args = parser.parse_args()
+
+    if args.output is None:
+        args.output = args.inputfile + ".output.tsv"
+
+    print("Input file:", args.inputfile)
+    print("Output file:", args.output)
+    print("Graph file", args.graph)
+    samples = run(args.inputfile, args.graph, args.output)
