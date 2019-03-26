@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import sys
 import argparse
+import math
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -35,7 +36,7 @@ def calculate_gini(x):
     '''
     calculates the gini coefficient
 
-    code from:
+    code based on:
     stackoverflow.com/questions/39512260/calculating-gini-coefficient-in-python-numpy/39513799
 
     @param x - the list of data to calculate the gini coefficient on
@@ -44,6 +45,10 @@ def calculate_gini(x):
     # (Warning: This is a concise implementation, but it is O(n**2)
     # in time and memory, where n = len(x).  *Don't* pass in huge
     # samples!)
+
+    #don't attempt to compute an empty list, just return NaN instead
+    if len(x) == 0:
+        return math.nan
 
     # Mean absolute difference
     mad = np.abs(np.subtract.outer(x, x)).mean()
