@@ -1,0 +1,5 @@
+pl_curves
+pandas>=0.20
+numpy>=1.10
+matplotlib>=2.0.0
+pep8>=1.5.0
