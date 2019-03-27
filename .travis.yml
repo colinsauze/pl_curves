@@ -6,8 +6,8 @@ python:
   - "3.7"
 # command to install dependencies
 install:
-  - pip install pandas pytest matplotlib numpy pep8
+  - pip install pandas pytest matplotlib numpy pycodestyle
 # command to run tests
 script:
   - pytest tests
-  - pep8 --ignore=E402 pl_curve.py
+  - pycodestyle --ignore=E402 pl_curve.py
