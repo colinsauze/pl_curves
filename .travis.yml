@@ -1,3 +1,4 @@
+dist: bionic
 language: python
 python:
   - "3.5"
@@ -9,4 +10,4 @@ install:
 # command to run tests
 script:
   - pytest tests
-  - pep8 pl_curve.py
+  - pep8 --ignore=E402 pl_curve.py

@@ -53,7 +53,7 @@ def calculate_gini(x):
     # Mean absolute difference
     mad = np.abs(np.subtract.outer(x, x)).mean()
     # Relative mean absolute difference
-    rmad = mad/np.mean(x)
+    rmad = mad / np.mean(x)
     # Gini coefficient
     g = 0.5 * rmad
     return g
@@ -123,7 +123,7 @@ def calculate_cumulative_relative_abundance(samples):
         # calculate cumulative relative abundance and cumulative prop trfs
         for i in range(0, len(sample)):
             if i > 0:
-                cum_rel_abund.append(sample.iloc[i][0] + cum_rel_abund[i-1])
+                cum_rel_abund.append(sample.iloc[i][0] + cum_rel_abund[i - 1])
             else:
                 cum_rel_abund.append(sample.iloc[i][0])
 
@@ -147,7 +147,7 @@ def calculate_cumulative_prop_trf(samples):
 
         # calculate cumulative prop trfs
         for i in range(0, len(sample)):
-            cum_prop_trfs.append((i+1) / len(sample))
+            cum_prop_trfs.append((i + 1) / len(sample))
 
         sample['Cum Prop TRFs'] = cum_prop_trfs
 
@@ -233,7 +233,7 @@ def make_gini_file(samples, gini_file):
 
         # calculate gini coefficient and corrected gini (g * (n/n-1))
         gini = calculate_gini(col.iloc[:, 0])
-        corrected_gini = gini * (len(col) / (len(col)-1))
+        corrected_gini = gini * (len(col) / (len(col) - 1))
 
         # add gini coefficients into a dataframe for saving the result
         gini_df.loc[title, 'Gini'] = gini
