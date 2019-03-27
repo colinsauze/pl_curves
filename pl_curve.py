@@ -46,7 +46,7 @@ def calculate_gini(x):
     # in time and memory, where n = len(x).  *Don't* pass in huge
     # samples!)
 
-    #don't attempt to compute an empty list, just return NaN instead
+    # don't attempt to compute an empty list, just return NaN instead
     if len(x) == 0:
         return math.nan
 
