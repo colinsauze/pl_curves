@@ -22,21 +22,17 @@ of taxonomical units in the sample by multiplying the ratio with n/(n-1).
 This implements the method described in the following papers:
 
 
-["Possible interactions between bacterial diversity, microbial activity and 
+Possible interactions between bacterial diversity, microbial activity and 
 supraglacial hydrology of cryoconite holes in Svalbard" by Arwyn Edwards, 
 Alexandre M Anesio, Sara M Rassner, Birgit Sattler, Bryn Hubbard, William T 
 Perkins, Michael Young & Gareth W Griffith in The ISME Journal volume 5, 
 pages 150–160 (2011)
-https://www.nature.com/articles/ismej2010100]
-(https://www.nature.com/articles/ismej2010100)
+https://www.nature.com/articles/ismej2010100
 
 and
 
-["Can the Bacterial Community of a 
+Can the Bacterial Community of a 
 High Arctic Glacier Surface Escape Viral Control?" by Sara M. E. Rassner, 
 Alexandre M. Anesio, Susan E. Girdwood, Katherina Hell, Jarishma K. Gokul, 
 David E. Whitworth and Arwyn Edwards in Frontiers in Microbiology 21 June 2016
-https://doi.org/10.3389/fmicb.2016.00956]
-(https://doi.org/10.3389/fmicb.2016.00956)
-
-
+https://doi.org/10.3389/fmicb.2016.00956
