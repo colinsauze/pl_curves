@@ -1,13 +1,5 @@
-import pandas as pd
-import numpy as np
-import sys
-import argparse
-import math
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
-'''
+#!/usr/bin/env python3
+"""
 A program for graphing the evenness of bacterial communities using
 Pareto–Lorenz curves of the relative abundance of a set of T-RFs against the
 cumulative abundance of each T-RF. It also calculates the gini-coefficient of
@@ -29,10 +21,24 @@ https://doi.org/10.3389/fmicb.2016.00956
 Control?" by Sara M. E. Rassner, Alexandre M. Anesio, Susan E. Girdwood,
 Katherina Hell, Jarishma K. Gokul, David E. Whitworth and Arwyn Edwards
 in Frontiers in Microbiology 21 June 2016
-'''
+
+@author: Colin Sauze
+"""
 
 
-def calculate_gini(x):
+import sys
+import argparse
+import math
+import pandas as pd
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+# note matplotlib.use('Agg') has to be done before any other matplotlib related
+# stuff including importing pyplot. This sets the backend to make a PNG file.
+
+
+def calculate_gini(data):
     '''
     calculates the gini coefficient
 
@@ -47,26 +53,26 @@ def calculate_gini(x):
     # samples!)
 
     # don't attempt to compute an empty list, just return NaN instead
-    if len(x) == 0:
+    if not data == 0:
         return math.nan
 
     # Mean absolute difference
-    mad = np.abs(np.subtract.outer(x, x)).mean()
+    mad = np.abs(np.subtract.outer(data, data)).mean()
     # Relative mean absolute difference
-    rmad = mad / np.mean(x)
+    rmad = mad / np.mean(data)
     # Gini coefficient
-    g = 0.5 * rmad
-    return g
+    gini = 0.5 * rmad
+    return gini
 
 
-def check_columns(df):
+def check_columns(dataframe):
     '''
     Checks all columns in the data frame sum to 1
-    @param df - the data frame to check
+    @param dataframe - the data frame to check
     @return False if a column doesn't sum to 1, True if they all do
     '''
-    for col in df.columns:
-        total = sum(df.loc[:, col])
+    for col in dataframe.columns:
+        total = sum(dataframe.loc[:, col])
         # print(col, "total=", total)
         if total < 0.9999 or total > 1.0001:
             # print("Error column ", col, "doesn't sum to 1.0")
@@ -74,36 +80,36 @@ def check_columns(df):
     return True
 
 
-def remove_zeros(df):
+def remove_zeros(dataframe):
     '''
     Removes all rows which contain only zeros
-    @param df - the data frame to check
+    @param dataframe - the data frame to check
     @return The dataframe with all zero rows removed
     '''
 
-    for row_index in df.index:
-        total = sum(df.loc[row_index])
+    for row_index in dataframe.index:
+        total = sum(dataframe.loc[row_index])
         if total == 0:
             # print("removing bin", row_index, "as its empty")
-            df = df.drop(row_index)
+            dataframe = dataframe.drop(row_index)
 
-    return df
+    return dataframe
 
 
-def sort_bins(df):
+def sort_bins(dataframe):
     '''
     Sort each bin by its relative abundance,
-    @param df - the data frame to check
+    @param dataframe - the data frame to check
     @return A list of dataframes, each dataframe contains a single sample
     '''
 
     # split each column into its own dataframe
     samples = []
 
-    for col in df.columns:
+    for col in dataframe.columns:
 
         # sort the bins in descending order, convert result to a new dataframe
-        data = df.loc[:, col].sort_values(ascending=False).to_frame()
+        data = dataframe.loc[:, col].sort_values(ascending=False).to_frame()
         samples.append(data)
     return samples
 
@@ -223,8 +229,8 @@ def make_gini_file(samples, gini_file):
     for col in samples:
         titles.append(col.columns[0])
     # make an empty data frame for the gini coefficients
-    gini_df = pd.DataFrame(columns=['Gini', 'Corrected Gini', 'n'],
-                           index=titles)
+    gini_dataframe = pd.DataFrame(columns=['Gini', 'Corrected Gini', 'n'],
+                                  index=titles)
 
     # make graph
     for col in samples:
@@ -236,13 +242,13 @@ def make_gini_file(samples, gini_file):
         corrected_gini = gini * (len(col) / (len(col) - 1))
 
         # add gini coefficients into a dataframe for saving the result
-        gini_df.loc[title, 'Gini'] = gini
-        gini_df.loc[title, 'Corrected Gini'] = corrected_gini
-        gini_df.loc[title, 'n'] = len(col)
+        gini_dataframe.loc[title, 'Gini'] = gini
+        gini_dataframe.loc[title, 'Corrected Gini'] = corrected_gini
+        gini_dataframe.loc[title, 'n'] = len(col)
 
-    print(gini_df)
+    print(gini_dataframe)
     # save the gini coefficients to a file
-    gini_df.to_csv(gini_file, sep='\t')
+    gini_dataframe.to_csv(gini_file, sep='\t')
 
 
 def run(input_file, graph_file, output_file):
@@ -251,12 +257,12 @@ def run(input_file, graph_file, output_file):
     **** change this function to alter filenames ****
     '''
 
-    df = pd.read_csv(input_file, delimiter='\t', index_col='Bin')
+    dataframe = pd.read_csv(input_file, delimiter='\t', index_col='Bin')
 
     # check all columns sum to 1, if so proceed and calculate/graph
-    if check_columns(df):
-        df = remove_zeros(df)
-        samples = sort_bins(df)
+    if check_columns(dataframe):
+        dataframe = remove_zeros(dataframe)
+        samples = sort_bins(dataframe)
         samples = calculate_cumulative_relative_abundance(samples)
         samples = remove_cumulative_abundance_over_one(samples)
         samples = calculate_cumulative_prop_trf(samples)
@@ -285,4 +291,4 @@ if __name__ == "__main__":
     print("Input file:", args.inputfile)
     print("Output file:", args.output)
     print("Graph file", args.graph)
-    samples = run(args.inputfile, args.graph, args.output)
+    sample_data = run(args.inputfile, args.graph, args.output)
