@@ -1,3 +1,5 @@
+# Introduction
+
 A program for graphically describing the evenness of bacterial communities using
  Pareto–Lorenz (PL) curves, by plotting the cumulative relative abundance 
 against the cumulative proportion of each taxonomical bins (based on e.g. T-RFs
@@ -36,3 +38,12 @@ High Arctic Glacier Surface Escape Viral Control?" by Sara M. E. Rassner,
 Alexandre M. Anesio, Susan E. Girdwood, Katherina Hell, Jarishma K. Gokul, 
 David E. Whitworth and Arwyn Edwards in Frontiers in Microbiology 21 June 2016
 https://doi.org/10.3389/fmicb.2016.00956
+
+## Citing this software
+
+If you are using this software in an academic paper then please cite it. A machine readable citation.cff file and BibTex (citation.bib) file can also be found in this repository.
+
+Colin Sauze and Sara Rassner, 2019, "PA script for generating Pareto–Lorenz (PL) curves", https://10.5281/zenodo.2628857 
+
+[![DOI](https://zenodo.org/badge/177189416.svg)](https://zenodo.org/badge/latestdoi/177189416)
+
