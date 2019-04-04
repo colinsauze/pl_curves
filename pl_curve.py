@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 A program for graphing the evenness of bacterial communities using
-Pareto–Lorenz curves of the relative abundance of a set of T-RFs against the
+Pareto-Lorenz curves of the relative abundance of a set of T-RFs against the
 cumulative abundance of each T-RF. It also calculates the gini-coefficient of
 these.
 
@@ -12,7 +12,7 @@ https://www.nature.com/articles/ismej2010100
 supraglacial hydrology of cryoconite holes in Svalbard" by
 Arwyn Edwards, Alexandre M Anesio, Sara M Rassner, Birgit Sattler,
 Bryn Hubbard, William T Perkins, Michael Young & Gareth W Griffith
-in The ISME Journal volume 5, pages 150–160 (2011)
+in The ISME Journal volume 5, pages 150-160 (2011)
 
 and
 
@@ -53,7 +53,7 @@ def calculate_gini(data):
     # samples!)
 
     # don't attempt to compute an empty list, just return NaN instead
-    if not data == 0:
+    if len(data) == 0:
         return math.nan
 
     # Mean absolute difference
