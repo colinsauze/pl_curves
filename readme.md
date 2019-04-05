@@ -43,9 +43,10 @@ https://doi.org/10.3389/fmicb.2016.00956
 
 If you are using this software in an academic paper then please cite it. A machine readable citation.cff file and BibTex (citation.bib) file can also be found in this repository.
 
-Colin Sauze and Sara Rassner, 2019, "PA script for generating Pareto–Lorenz (PL) curves", https://10.5281/zenodo.2628857 
+Colin Sauze and Sara Rassner, 2019, "PA script for generating Pareto–Lorenz (PL) curves", https://10.5281/zenodo.2630659  
 
 [![DOI](https://zenodo.org/badge/177189416.svg)](https://zenodo.org/badge/latestdoi/177189416)
+
 
 ## Build Status
 
