@@ -39,14 +39,20 @@ import matplotlib.pyplot as plt
 
 
 def calculate_gini(data):
-    '''
-    calculates the gini coefficient
-
-    code based on:
+    '''Xalculates the gini coefficient.
+    This code is based on:
     stackoverflow.com/questions/39512260/calculating-gini-coefficient-in-python-numpy/39513799
 
-    @param x - the list of data to calculate the gini coefficient on
-    @return the gini coefficient for this data
+    Parameters
+    ----------
+    data
+        the list of data to calculate the gini coefficient on
+
+    Returns
+    -------
+    float64
+        The gini coefficient for this data
+
     '''
     # (Warning: This is a concise implementation, but it is O(n**2)
     # in time and memory, where n = len(x).  *Don't* pass in huge
@@ -68,8 +74,16 @@ def calculate_gini(data):
 def check_columns(dataframe):
     '''
     Checks all columns in the data frame sum to 1
-    @param dataframe - the data frame to check
-    @return False if a column doesn't sum to 1, True if they all do
+
+    Parameters
+    ----------
+    dataframe
+        The data frame to check
+
+    Returns
+    -------
+    Bool
+        False if a column doesn't sum to 1, True if they all do
     '''
     for col in dataframe.columns:
         total = sum(dataframe.loc[:, col])
@@ -83,8 +97,16 @@ def check_columns(dataframe):
 def remove_zeros(dataframe):
     '''
     Removes all rows which contain only zeros
-    @param dataframe - the data frame to check
-    @return The dataframe with all zero rows removed
+
+    Parameters
+    ----------
+    dataframe
+        The data frame to check
+
+    Returns
+    -------
+    pandas.core.frame.DataFrame
+       The dataframe with all zero rows removed
     '''
 
     for row_index in dataframe.index:
@@ -98,9 +120,17 @@ def remove_zeros(dataframe):
 
 def sort_bins(dataframe):
     '''
-    Sort each bin by its relative abundance,
-    @param dataframe - the data frame to check
-    @return A list of dataframes, each dataframe contains a single sample
+    Sort each bin by its relative abundance
+
+    Parameters
+    ----------
+    dataframe
+        The data frame to check
+
+    Returns
+    -------
+    list
+        A list of dataframes, each dataframe contains a single sample
     '''
 
     # split each column into its own dataframe
@@ -117,9 +147,17 @@ def sort_bins(dataframe):
 def calculate_cumulative_relative_abundance(samples):
     '''
     calculates cumulative relative abundance
-    @param samples - a list of dataframes
-    @return a new list of dataframes, each one will have an additional column
-    'cuml rel abund' with the cumulative relative abundance.
+
+    Parameters
+    ----------
+    samples
+        a list of dataframes
+
+    Returns
+    -------
+    list
+        a new list of dataframes, each one will have an additional column
+        'cuml rel abund' with the cumulative relative abundance.
     '''
 
     samples2 = []
@@ -143,9 +181,17 @@ def calculate_cumulative_relative_abundance(samples):
 def calculate_cumulative_prop_trf(samples):
     '''
     calculates cumulative prop trf
-    @param samples - a list of dataframes
-    @return a new list of dataframes, each one will have an additional column
-    'cum prop trfs' with the cumulative prop trfs.
+
+    Parameters
+    ----------
+    samples
+        A list of dataframes
+
+    Returns
+    -------
+    list
+        A new list of dataframes, each one will have an additional column
+        'cum prop trfs' with the cumulative prop trfs.
     '''
     samples2 = []
     for sample in samples:
@@ -165,10 +211,18 @@ def calculate_cumulative_prop_trf(samples):
 def remove_cumulative_abundance_over_one(samples):
     '''
     deletes all but the first item where cumulative abundance is greater than 1
-    @param samples - a list of dataframes each dataframe should have 3 columns
-    one with the name of the step, Cum Prop TRFs and Cum Rel Abund.
-    @return a modified version of the list with all but the first row where
-    cumulative abundance is greater than 1.
+
+    Parameters
+    ----------
+    samples
+        A list of dataframes each dataframe should have 3 columns. One with the
+        name of the step, Cum Prop TRFs and Cum Rel Abund.
+
+    Returns
+    -------
+    list
+        A modified version of the list with all but the first row where
+        cumulative abundance is greater than 1.
     '''
     samples2 = []
 
@@ -198,9 +252,14 @@ def remove_cumulative_abundance_over_one(samples):
 def make_graph(samples, filename):
     '''
     Makes a graph
-    @param samples - a list of dataframes, each dataframe should contain 3
-    columns one with the name of the step, Cum Prop TRFs and Cum Rel Abund.
-    @param filename - Name of the file to save the graph to
+
+    Parameters
+    ----------
+    samples
+        A list of dataframes, each dataframe should contain 3 columns one with
+        the name of the step, Cum Prop TRFs and Cum Rel Abund.
+    filename
+        Name of the file to save the graph to
     '''
 
     # the - prefix means a line will drawn
@@ -241,9 +300,14 @@ def make_graph(samples, filename):
 def make_gini_file(samples, gini_file):
     '''
     Calculates the Gini coefficients and saves them to a TSV file
-    @param samples - a list of dataframes, each dataframe should contain 3
-    columns one with the name of the step, Cum Prop TRFs and Cum Rel Abund.
-    @param gini_file - Name of the file to save the gini coefficient data to
+
+    Parameters
+    ----------
+    samples
+        A list of dataframes, each dataframe should contain 3 columns one with
+        the name of the step, Cum Prop TRFs and Cum Rel Abund.
+    gini_file
+        Name of the file to save the gini coefficient data to
     '''
     titles = []
     for col in samples:
@@ -275,6 +339,15 @@ def run(input_file, graph_file, output_file):
     '''
     runs everything
     **** change this function to alter filenames ****
+
+    Parameters
+    ----------
+    input_file
+        The file to read data from
+    graph_file
+        The file to save the graph as
+    output_file
+        The file to save the data to
     '''
 
     dataframe = pd.read_csv(input_file, delimiter='\t', index_col='Bin')
