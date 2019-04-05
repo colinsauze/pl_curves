@@ -53,7 +53,6 @@ def calculate_gini(data):
     # samples!)
 
     # don't attempt to compute an empty list, just return NaN instead
-    print("type=",type(data),data)
     if data.size == 0:
         return math.nan
 
