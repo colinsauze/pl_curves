@@ -53,7 +53,8 @@ def calculate_gini(data):
     # samples!)
 
     # don't attempt to compute an empty list, just return NaN instead
-    if len(data) == 0:
+    print("type=",type(data),data)
+    if data.size == 0:
         return math.nan
 
     # Mean absolute difference
@@ -203,19 +204,39 @@ def make_graph(samples, filename):
     @param filename - Name of the file to save the graph to
     '''
 
+    # the - prefix means a line will drawn
+    # see https://matplotlib.org/api/markers_api.html for a list of markers
+    markerlist = ["-+", "-,", "-o", "-*", "-.", "-^", "-<", "->", "-v"]
+
+    # the list of markers to use, must be longer or equal to number of steps
+    # check it really is
+    assert len(markerlist) >= len(samples)
+
+    # counter for going through the makerlist
+    i = 0
     # make graph
     for col in samples:
         # get the title of current sample from the heading of its 1st column
         title = col.columns[0]
 
+        plt.xlim(0, 1.0)
+        plt.ylim(0, 1.05)
+
+        plt.annotate("",
+                     xy=(0, 0), xycoords='data',
+                     xytext=(1, 1), textcoords='data',
+                     arrowprops=dict(arrowstyle="-",
+                                     connectionstyle="arc3,rad=0."), )
+
         # plot cumulative prop trfs vs cumulative relative abundance
         plt.plot(col.loc[:, 'Cum Prop TRFs'], col.loc[:, 'Cum Rel Abund'],
-                 label=title)
+                 markerlist[i], label=title)
         plt.ylabel("Cumulative Relative Abundance")
         plt.xlabel("Cumulative Prop TRF")
         plt.grid()
         plt.legend()
         plt.savefig(filename)
+        i = i + 1
 
 
 def make_gini_file(samples, gini_file):
