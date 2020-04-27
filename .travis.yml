@@ -11,3 +11,7 @@ install:
 script:
   - pytest tests
   - pycodestyle --ignore=E402 pl_curve.py
+  - python -m pytest --cov --cov-report tests
+  
+after_success:
+  - codecov
