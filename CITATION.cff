@@ -8,6 +8,6 @@ authors:
     given-names: Sara
     orcid: https://orcid.org/0000-0003-1088-5140
 title: A script for generating Pareto–Lorenz (PL) curves
-version: 1.0
-doi: 10.5281/zenodo.2628857 
-date-released: 2019-04-04
+version: 1.1
+doi: 10.5281/zenodo.2630659
+date-released: 2019-04-05
