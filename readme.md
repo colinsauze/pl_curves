@@ -1,4 +1,4 @@
-This software is automatically tested by Travis-CI after each build. Its current status is shown below:
+This software is automatically tested by Travis-CI after each build. Current build status:
 ![Build status](https://travis-ci.org/cdt-aimlac/pl_curves.svg?branch=master)
 
 # Introduction
