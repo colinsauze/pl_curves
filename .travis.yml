@@ -1,0 +1,13 @@
+dist: bionic
+language: python
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+# command to install dependencies
+install:
+  - pip install pandas pytest matplotlib numpy pycodestyle
+# command to run tests
+script:
+  - pytest tests
+  - pycodestyle --ignore=E402 pl_curve.py
