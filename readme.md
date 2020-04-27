@@ -1,28 +1,16 @@
 # Introduction
 
-A program for graphically describing the evenness of bacterial communities using
- Pareto–Lorenz (PL) curves, by plotting the cumulative relative abundance 
-against the cumulative proportion of each taxonomical bins (based on e.g. T-RFs
-, OTUs). The more the plotted line deviates from the 1:1 line (45° diagonal), 
-the lower the evenness of the community.
+This program calculates Pareto–Lorenz (PL) curves for calculating the relative abundance of different bacteria in a community. It also calculates a Gini coefficient to show how evenly distributed the different bacteria are. There are tests written for most functions. Your task is to:
 
-For each sample individually, empty bins are removed and the remaining bins are
- sorted in decreasing order of relative abundance. The cumulative relative 
-abundance (range 0-1) and cumulative proportion of bins (range 0-1) are 
-calculated and the data plotted so that the first (left most) data point 
-represents the contribution of the bin with the highest relative abundance. 
-Data for all samples in the imported data set are plotted on the same graph, 
-to facilitate comparisons between samples. 
+1. Fork this repository
+2. If you don't already have one, create a travis-ci (https://travis-ci.org/) account. Sign in with your github to this.
+3. Add a new repository in Travis by clicking on the + button 
+4. You should now be able to view the state of each build on the Travis webpage. Every push to the repository will trigger Travis to rebuild.
+5. There is a link to a badge automatically produced by Travis at the bottom of this readme file, you will need to update this to the address of your own repository.
 
-The program also calculates the Gini-coefficient for each community, which 
-describes the evenness of a community as the ratio of the area between the PL 
-curve and the equality line and the whole triangular area above the equality 
-line. The Gini coefficient ranges from 0 (perfect evenness) to 1 (perfect 
-unevenness). The reported Gini coefficient has been corrected for the number 
-of taxonomical units in the sample by multiplying the ratio with n/(n-1).
+# Purpose
 
-This implements the method described in the following papers:
-
+This code implements the method described in the following papers:
 
 Possible interactions between bacterial diversity, microbial activity and 
 supraglacial hydrology of cryoconite holes in Svalbard" by Arwyn Edwards, 
@@ -51,4 +39,4 @@ Colin Sauze and Sara Rassner, 2019, "PA script for generating Pareto–Lorenz (P
 ## Build Status
 
 This software is automatically tested by Travis-CI after each build. Its current status is shown below:
-![Build status](https://travis-ci.org/colinsauze/pl_curves.svg?branch=master)
+![Build status](https://travis-ci.org/cdt-aimlac/pl_curves.svg?branch=master)
