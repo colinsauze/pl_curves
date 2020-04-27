@@ -39,7 +39,7 @@ import matplotlib.pyplot as plt
 
 
 def calculate_gini(data):
-    '''Xalculates the gini coefficient.
+    '''calculates the gini coefficient.
     This code is based on:
     stackoverflow.com/questions/39512260/calculating-gini-coefficient-in-python-numpy/39513799
 
