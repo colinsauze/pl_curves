@@ -1,3 +1,6 @@
+This software is automatically tested by Travis-CI after each build. Its current status is shown below:
+![Build status](https://travis-ci.org/cdt-aimlac/pl_curves.svg?branch=master)
+
 # Introduction
 
 This program calculates Pareto–Lorenz (PL) curves for calculating the relative abundance of different bacteria in a community. It also calculates a Gini coefficient to show how evenly distributed the different bacteria are. There are tests written for most functions. Your task is to:
@@ -6,7 +9,9 @@ This program calculates Pareto–Lorenz (PL) curves for calculating the relative
 2. If you don't already have one, create a travis-ci (https://travis-ci.org/) account. Sign in with your github to this.
 3. Add a new repository in Travis by clicking on the + button 
 4. You should now be able to view the state of each build on the Travis webpage. Every push to the repository will trigger Travis to rebuild.
-5. There is a link to a badge automatically produced by Travis at the bottom of this readme file, you will need to update this to the address of your own repository.
+5. There is a link to a badge automatically produced by Travis at the top of this readme file, you will need to update this to the address of your own repository.
+6. Fix the broken tests.
+7. Add python 3.8 as a target language in the .travis.yml file, fix any errors which result from this.
 
 # Purpose
 
@@ -36,7 +41,3 @@ Colin Sauze and Sara Rassner, 2019, "PA script for generating Pareto–Lorenz (P
 [![DOI](https://zenodo.org/badge/177189416.svg)](https://zenodo.org/badge/latestdoi/177189416)
 
 
-## Build Status
-
-This software is automatically tested by Travis-CI after each build. Its current status is shown below:
-![Build status](https://travis-ci.org/cdt-aimlac/pl_curves.svg?branch=master)
