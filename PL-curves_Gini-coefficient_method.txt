@@ -1,0 +1,44 @@
+Generating and plotting Pareto-Lorenz curves and calculating Gini coefficients for relative abundance data
+
+DATA LAYOUT:
+Column A: a list of unique "species"(bins/OTUs/TRFs) in numerical or alpha-numerical format (regardless of format, think of them as "names of species")
+Columns B-end: each column is a separate sample, contaning the relative abundance of each bin/species within that sample. Each sample column should sum to 1
+Row 1: headings (name of species approximation method (bin, TRF, OTU etc) in column A, sample IDs in remaining columns) -- Name each sample after its row 1 value!
+
+Bins	Sample1	Sample2	Sample3	Sample4
+Bin1	0   	0.25	0.1 	0.2
+Bin2	0.4 	0.20	0.7 	0.1
+Bin3	0.5 	0.25	0.05	0.1	
+Bin4	0.1 	0.30	0.05	0.6
+Bin5	0   	0   	0   	0
+Bin6	0   	0   	0.1 	0
+
+
+
+PROCESS:
+Check that the values in each sample column sums to 1 (otherwise something is wrong, data missing, or it might be counts rather than relative abundance data)
+Remove any bins for which _ALL_ samples have a relative abundance = 0 (any row for which columns B-end have zero values only)  Example: Bin5 above (remove!) <-- this step is not needed for newer data sets, where there are no all-zero bins in the final data set. 
+Do not remove any bins that have at least one cell where rel abund > 0! Example: Bin6 above (keep!)
+
+For EACH sample:
+	sort bins after decreasing relative abundance (bin with largest rel abund first)		
+	
+	associate the new order of bins with the cumulative number of bins (1, 2, 3, ... N)
+	
+	calculate the cumulative relative abundance	for each step (for cum bin = 1, 2, 3, ..., N)    <--- Cum rel abund: these are the y-values!
+	
+	remove all empty bins, i.e. once cum rel abund have reach 1, all subsequent bins with cum rel abund=1 are removed (leaving the first cum bin with a value of 1)
+	
+	note down the number of bins remaining (n)  (NB! n <= N)
+	
+	calculate the cumulative proportion of bins (1/n, 2/n, 3/n .... n/n)   <--- Cum prop bins: these are the x-values!
+	
+	Calculate Gini coefficient for each sample (G= 1-|Σ[k=1->n](y[k-1]+y[k])(x[k]-x[k-1])|) where x=cum prop bins, y= cum rel abund
+	Calculate corrected Gini coefficient for each sample (G[corr] = G(n/(n-1))
+
+Then:	
+Collate the x and y values for all samples.
+
+Plot all samples on one graph: Scatter plot but with connecting lines and  no visible markers, x=cum proportion of bins, y= cum rel abund, both axes are going from 0 to 1, lable lines using sample names from Row 1, also plot a dotted 1:1 line (running diagonally from origin to top right hand corner).
+
+Make a table with all Gcorr values listed against sample names.
