@@ -1,7 +1,7 @@
 This software is automatically tested by Travis-CI after each build. Current build status:
 ![Build status](https://travis-ci.org/cdt-aimlac/pl_curves.svg?branch=master)
 
-[![codecov](https://codecov.io/gh/CDT-AIMLAC/pl_curves/branch/master/graph/badge.svg)](https://codecov.io/gh/CDT-AIMLAC/pl_curves)https://codecov.io/login/gh
+[![codecov](https://codecov.io/gh/CDT-AIMLAC/pl_curves/branch/master/graph/badge.svg)](https://codecov.io/gh/CDT-AIMLAC/pl_curves)
 
 # Introduction
 
