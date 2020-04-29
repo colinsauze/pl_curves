@@ -22,6 +22,8 @@ This program calculates Pareto–Lorenz (PL) curves for calculating the relative
 
 4. Fix the broken tests.
 5. Add python 3.8 as a target language in the .travis.yml file, fix any errors which result from this.
+6. Upgrade to Pandas version 1.03 and see what breaks.
+7. (optional) send a pull request to the original repository (https://github.com/colinsauze/pl_curves)
 
 
 # Purpose
