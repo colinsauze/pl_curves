@@ -15,6 +15,7 @@ This program calculates Pareto–Lorenz (PL) curves for calculating the relative
       * Press the 3 horizontal dots on left side and click "Create status badge".
       * Copy the markdown and replace the code on line 2 of this file with it.
     * Commiting a change to this file will cause the Github Actions to run.
+    * The first run will take a few minutes to start, subsequent runs should be quicker. The first run will also fail due to some broken tests.
 4. Setup codecov.io
    Codecov.io reports the test coverage percentage. Github Actions can produce and push reports to codecov. You need to create an account linked to your github page at https://codecov.io/login/gh.
    * Click on your user name and choose "add repository"
