@@ -1,3 +1,4 @@
+Tests passing:
 ![Build pass/fail](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
 
 Code coverage: 
