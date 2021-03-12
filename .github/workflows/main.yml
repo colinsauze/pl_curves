@@ -1,35 +1,41 @@
-name: Python package
-
+name: Python Testing
+#when to run this action
 on: [push]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    #choose which operating system we run on
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8]
+        #which versions of python will we target?
+        python-version: [3.5, 3.6, 3.7]
 
     steps:
+    #checkout the code, checkout@v2 means version 2 of the checkout command
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    #install all the dependencies specified in requirements.txt
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    #run flake8 to check for errors in the code
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    #run the unit tests
     - name: Test with pytest
       run: |
         pytest
+        
+    #check test coverage, this requires a codecov account linked to your github account
     - name: Check test coverage
       run: |
         codecov
