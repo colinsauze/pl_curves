@@ -1,6 +1,6 @@
 name: Python Testing
-#when to run this action
-on: [push]
+#when to run this action, workflow_dispatch lets us run it manually
+on: [push,workflow_dispatch]
 
 jobs:
   build:
