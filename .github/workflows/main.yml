@@ -1,0 +1,41 @@
+name: Python Testing
+#when to run this action, workflow_dispatch lets us run it manually
+on: [push,workflow_dispatch]
+
+jobs:
+  build:
+    #choose which operating system we run on
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        #which versions of python will we target?
+        python-version: [3.5, 3.6, 3.7, 3.8]
+
+    steps:
+    #checkout the code, checkout@v2 means version 2 of the checkout command
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    #install all the dependencies specified in requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    #run flake8 to check for errors in the code
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --ignore=E402,F841 --max-complexity=10 --max-line-length=127 --statistics
+    #run the unit tests
+    - name: Test with pytest
+      run: |
+        pytest
+        
+    #check test coverage, this requires a codecov account linked to your github account
+    - name: Check test coverage
+      run: |
+        codecov
