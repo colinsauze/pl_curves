@@ -14,7 +14,7 @@ def test_gini_empty():
     gini = calculate_gini(pd.Series([]))
     assert math.isnan(gini) is True
 
-    
+
 def test_gini_single():
     '''FIXME
     test calculating a gini coefficient with a single item in the list
