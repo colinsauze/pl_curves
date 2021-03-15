@@ -52,8 +52,8 @@ Colin Sauze and Sara Rassner, 2019, "PA script for generating Pareto–Lorenz (P
 
 ## Build Status
 
-This software is automatically tested by Travis-CI after each build. Its current status is shown below:
-[![Build status](https://travis-ci.org/colinsauze/pl_curves.svg?branch=master)](https://travis-ci.org/colinsauze/pl_curves)
+This software is automatically tested by Github Actions after each build. Its current status is shown below:
+[![Build Status](https://github.com/colinsauze/pl_curves/actions/workflows/main.yml/badge.svg)](https://github.com/colinsauze/pl_curves/actions/workflows/main.yml)
 
 [![codecov](https://codecov.io/gh/colinsauze/pl_curves/branch/master/graph/badge.svg)](https://codecov.io/gh/colinsauze/pl_curves)
 
