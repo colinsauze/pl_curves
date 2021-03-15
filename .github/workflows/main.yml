@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         #which versions of python will we target?
-        python-version: [3.5, 3.6, 3.7, 3.8]
+        python-version: [3.5, 3.6]
 
     steps:
     #checkout the code, checkout@v2 means version 2 of the checkout command
