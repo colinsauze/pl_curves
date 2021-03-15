@@ -1,3 +1,5 @@
+[![Python Testing](https://github.com/colinsauze/pl_curves/actions/workflows/main.yml/badge.svg)](https://github.com/colinsauze/pl_curves/actions/workflows/main.yml)
+
 # Introduction
 
 A program for graphically describing the evenness of bacterial communities using
