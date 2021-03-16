@@ -33,9 +33,10 @@ jobs:
     #run the unit tests
     - name: Test with pytest
       run: |
-        pytest
-        
-    #check test coverage, this requires a codecov account linked to your github account
-    - name: Check test coverage
-      run: |
-        codecov
+        pytest --cov=./
+
+   #upload coverage report to codecov     
+    - name: "Upload coverage to Codecov"
+      uses: codecov/codecov-action@v1
+      with:
+          fail_ci_if_error: true
