@@ -9,19 +9,19 @@ Code coverage:
 This program calculates Pareto–Lorenz (PL) curves for calculating the relative abundance of different bacteria in a community. It also calculates a Gini coefficient to show how evenly distributed the different bacteria are. There are tests written for most functions. Your task is to:
 
 1. Fork this repository
-3. Fix the badge path and test github actions
+2. Fix the badge path and test github actions
     * Edit the URL at the top of this file to be your repository, not CDT-AIMLAC or:
       * Click on the actions tab and choose the "Python testing" workflow.
       * Press the 3 horizontal dots on left side and click "Create status badge".
       * Copy the markdown and replace the code on line 2 of this file with it.
     * Commiting a change to this file will cause the Github Actions to run.
-    * The first run will take a few minutes to start, subsequent runs should be quicker. The first run will also fail due to some broken tests.
-4. Setup codecov.io
+    * The first run will take a few minutes to start, subsequent runs should be quicker. The first run will also fail due to some broken tests. Sometimes it will timeout when installing the dependencies, if this happens rerun it manually.
+3. Setup codecov.io
    Codecov.io reports the test coverage percentage. Github Actions can produce and push reports to codecov. You need to create an account linked to your github page at https://codecov.io/login/gh.
    * Click on your user name and choose "add repository"
    * Find the pl_curves repository and go to Settings->Badge, copy the markdown and replace the codecov badge link on line 4 of this file.
 4. Fix the broken tests.
-5. Add python 3.8 as a target language in the .github/workflows/main.yml file, fix any errors which result from this.
+5. Add python 3.7 and 3.8 as target languages in the .github/workflows/main.yml file, fix any errors which result from this.
 6. Upgrade the operating system being tested from Ubuntu 18.04 to Ubuntu 20.04.
 7. Upgrade to Pandas version 1.03 and see what breaks.
 8. (optional) send a pull request to the original repository (https://github.com/colinsauze/pl_curves) with your fixes and improvements.
