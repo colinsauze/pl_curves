@@ -23,7 +23,7 @@ This program calculates Pareto–Lorenz (PL) curves for calculating the relative
 4. Fix the broken tests.
 5. Add python 3.7 and 3.8 as target languages in the .github/workflows/main.yml file, fix any errors which result from this.
 6. Upgrade the operating system being tested from Ubuntu 18.04 to Ubuntu 20.04.
-7. Upgrade to Pandas version 1.03 and see what breaks.
+7. Upgrade to the most recent version of Pandas and see what breaks.
 8. (optional) send a pull request to the original repository (https://github.com/colinsauze/pl_curves) with your fixes and improvements.
 
 
