@@ -326,8 +326,9 @@ def make_gini_file(samples, gini_file):
         corrected_gini = gini * (len(col) / (len(col) - 1))
 
         # add gini coefficients into a dataframe for saving the result
-        gini_dataframe.loc[title, 'Gini'] = gini
-        gini_dataframe.loc[title, 'Corrected Gini'] = corrected_gini
+        # 24-March-2021: limit to a certain precision for csv exporting.
+        gini_dataframe.loc[title, 'Gini'] = f"{gini:f}"
+        gini_dataframe.loc[title, 'Corrected Gini'] = f"{corrected_gini:f}"
         gini_dataframe.loc[title, 'n'] = len(col)
 
     print(gini_dataframe)
