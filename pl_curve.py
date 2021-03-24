@@ -327,8 +327,8 @@ def make_gini_file(samples, gini_file):
 
         # add gini coefficients into a dataframe for saving the result
         # 24-March-2021: limit to a certain precision for csv exporting.
-        gini_dataframe.loc[title, 'Gini'] = f"{gini:f}"
-        gini_dataframe.loc[title, 'Corrected Gini'] = f"{corrected_gini:f}"
+        gini_dataframe.loc[title, 'Gini'] = "{:f}".format(gini)
+        gini_dataframe.loc[title, 'Corrected Gini'] = "{:f}".format(corrected_gini)
         gini_dataframe.loc[title, 'n'] = len(col)
 
     print(gini_dataframe)
