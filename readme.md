@@ -1,8 +1,8 @@
 Tests passing:
-[![Python Testing](https://github.com/CDT-AIMLAC/pl_curves/actions/workflows/main.yml/badge.svg)](https://github.com/CDT-AIMLAC/pl_curves/actions/workflows/main.yml)
+[![Python Testing](https://github.com/WYVERN2742/pl_curves/actions/workflows/main.yml/badge.svg)](https://github.com/WYVERN2742/pl_curves/actions/workflows/main.yml)
 
-Code coverage: 
-[![codecov](https://codecov.io/gh/CDT-AIMLAC/pl_curves/branch/master/graph/badge.svg)](https://codecov.io/gh/CDT-AIMLAC/pl_curves)
+Code coverage:
+[![codecov](https://codecov.io/gh/WYVERN2742/pl_curves/branch/master/graph/badge.svg)](https://codecov.io/gh/WYVERN2742/pl_curves)
 
 # Introduction
 
@@ -31,18 +31,18 @@ This program calculates Pareto–Lorenz (PL) curves for calculating the relative
 
 This code implements the method described in the following papers:
 
-Possible interactions between bacterial diversity, microbial activity and 
-supraglacial hydrology of cryoconite holes in Svalbard" by Arwyn Edwards, 
-Alexandre M Anesio, Sara M Rassner, Birgit Sattler, Bryn Hubbard, William T 
-Perkins, Michael Young & Gareth W Griffith in The ISME Journal volume 5, 
+Possible interactions between bacterial diversity, microbial activity and
+supraglacial hydrology of cryoconite holes in Svalbard" by Arwyn Edwards,
+Alexandre M Anesio, Sara M Rassner, Birgit Sattler, Bryn Hubbard, William T
+Perkins, Michael Young & Gareth W Griffith in The ISME Journal volume 5,
 pages 150–160 (2011)
 https://www.nature.com/articles/ismej2010100
 
 and
 
-Can the Bacterial Community of a 
-High Arctic Glacier Surface Escape Viral Control?" by Sara M. E. Rassner, 
-Alexandre M. Anesio, Susan E. Girdwood, Katherina Hell, Jarishma K. Gokul, 
+Can the Bacterial Community of a
+High Arctic Glacier Surface Escape Viral Control?" by Sara M. E. Rassner,
+Alexandre M. Anesio, Susan E. Girdwood, Katherina Hell, Jarishma K. Gokul,
 David E. Whitworth and Arwyn Edwards in Frontiers in Microbiology 21 June 2016
 https://doi.org/10.3389/fmicb.2016.00956
 
@@ -50,8 +50,6 @@ https://doi.org/10.3389/fmicb.2016.00956
 
 If you are using this software in an academic paper then please cite it. A machine readable citation.cff file and BibTex (citation.bib) file can also be found in this repository.
 
-Colin Sauze and Sara Rassner, 2019, "PA script for generating Pareto–Lorenz (PL) curves", https://10.5281/zenodo.2630659  
+Colin Sauze and Sara Rassner, 2019, "PA script for generating Pareto–Lorenz (PL) curves", https://10.5281/zenodo.2630659
 
 [![DOI](https://zenodo.org/badge/177189416.svg)](https://zenodo.org/badge/latestdoi/177189416)
-
-
