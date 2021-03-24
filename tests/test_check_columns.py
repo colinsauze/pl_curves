@@ -4,7 +4,10 @@ import pandas
 
 
 def test_check_columns_correct():
-    df = pandas.DataFrame([0.1, 0.1, 0.8])
+    '''
+    Tests check_columns correctly checks items summing to 1.0 returns true
+    '''
+    df = pandas.DataFrame([0.2, 0.8])
     assert check_columns(df) is True
 
 

@@ -11,17 +11,17 @@ def test_gini_empty():
     '''test calculating a gini coefficient with an empty list
     This will cause some warnings from python
     '''
-    gini = calculate_gini(pd.Series([]))
+    gini = calculate_gini(pd.Series([], dtype=float))
     assert math.isnan(gini) is True
 
 
 def test_gini_single():
-    '''test calculating a gini coefficient with a single item in the list
+    '''FIXME
+    test calculating a gini coefficient with a single item in the list
     the coefficient should be zero as there's no variation
     '''
     gini = calculate_gini(pd.Series([1.0]))
     assert gini == 0.0
-
 
 def test_gini_four():
     '''test calculating a gini coefficient with four different items'''

@@ -63,7 +63,7 @@ def calculate_gini(data):
         return math.nan
 
     # Mean absolute difference
-    mad = np.abs(np.subtract.outer(data, data)).mean()
+    mad = np.abs(np.subtract.outer(np.array(data), np.array(data))).mean()
     # Relative mean absolute difference
     rmad = mad / np.mean(data)
     # Gini coefficient
@@ -326,8 +326,9 @@ def make_gini_file(samples, gini_file):
         corrected_gini = gini * (len(col) / (len(col) - 1))
 
         # add gini coefficients into a dataframe for saving the result
-        gini_dataframe.loc[title, 'Gini'] = gini
-        gini_dataframe.loc[title, 'Corrected Gini'] = corrected_gini
+        # 24-March-2021: limit to a certain precision for csv exporting.
+        gini_dataframe.loc[title, 'Gini'] = "{:f}".format(gini)
+        gini_dataframe.loc[title, 'Corrected Gini'] = "{:f}".format(corrected_gini)
         gini_dataframe.loc[title, 'n'] = len(col)
 
     print(gini_dataframe)
