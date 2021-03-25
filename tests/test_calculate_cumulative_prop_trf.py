@@ -32,8 +32,8 @@ def test_calculate_cumulative_prop_trf():
     df1_res = result[0]
     df2_res = result[1]
 
-    assert df1_res.columns.contains('Cum Prop TRFs')
-    assert df2_res.columns.contains('Cum Prop TRFs')
+    assert 'Cum Prop TRFs' in df1_res.columns
+    assert 'Cum Prop TRFs' in df2_res.columns
 
     assert df1_res.loc['219', 'Cum Prop TRFs'] == 0.5
     assert df1_res.loc['218', 'Cum Prop TRFs'] == 1.0

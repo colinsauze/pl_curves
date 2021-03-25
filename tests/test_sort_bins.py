@@ -22,7 +22,7 @@ def test_sort_bins():
 
     # check each column is in order
     for col in result:
-        max_value = col.max()[0]
+        max_value = float(col.max()[0])
         for i in col.values:
             assert float(i[0]) <= max_value
             max_value = float(i[0])

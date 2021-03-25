@@ -1,0 +1,9 @@
+# Ignore compiled python
+*.pyc
+**/__pycache__/
+
+# Ignore result files used in unit testing
+test.png
+test-input.tsv
+test.tsv
+**/.pytest_cache/
