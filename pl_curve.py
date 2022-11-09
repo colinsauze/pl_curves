@@ -268,7 +268,7 @@ def make_graph(samples, filename):
 
     # the list of markers to use, must be longer or equal to number of steps
     # check it really is
-    assert len(markerlist) >= len(samples)
+#    assert len(markerlist) >= len(samples)
 
     # counter for going through the makerlist
     i = 0
@@ -287,8 +287,14 @@ def make_graph(samples, filename):
                                      connectionstyle="arc3,rad=0."), )
 
         # plot cumulative prop trfs vs cumulative relative abundance
+#        plt.plot(col.loc[:, 'Cum Prop TRFs'], col.loc[:, 'Cum Rel Abund'],
+#                markerlist[i], label=title)
+
         plt.plot(col.loc[:, 'Cum Prop TRFs'], col.loc[:, 'Cum Rel Abund'],
-                 markerlist[i], label=title)
+                 label=title)
+
+
+
         plt.ylabel("Cumulative Relative Abundance")
         plt.xlabel("Cumulative Prop TRF")
         plt.grid()
