@@ -1,0 +1,8 @@
+To install it is recommended to use a virtual environment by running the following commands:
+
+python3 -m pip install --user virtualenv
+python3 -m venv plcurves
+source plcurves/bin/activate
+pip install -r requirements.txt
+
+
