@@ -3,7 +3,7 @@ from pl_curve import make_gini_file
 import pandas
 import numpy as np
 import os
-
+from pytest import approx
 
 def test_make_gini_file():
     data1 = np.array([['', 'Step I', 'Cum Prop TRFs', 'Cum Rel Abund'],
@@ -34,7 +34,7 @@ def test_make_gini_file():
     assert os.path.isfile("test.tsv") is True
 
     data = pandas.read_csv("test.tsv", delimiter='\t', index_col=0)
-    assert data.loc['Step I', 'Gini'] == 0.0
-    assert data.loc['Step I', 'Corrected Gini'] == 0.0
-    assert data.loc['Step II', 'Gini'] == 0.25
-    assert data.loc['Step II', 'Corrected Gini'] == 0.5
+    assert data.loc['Step I', 'Gini'] == approx(0.0)
+    assert data.loc['Step I', 'Corrected Gini'] == approx(0.0)
+    assert data.loc['Step II', 'Gini'] == approx(0.25)
+    assert data.loc['Step II', 'Corrected Gini'] == approx(0.5)

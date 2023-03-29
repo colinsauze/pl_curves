@@ -3,6 +3,7 @@
 unit test for the gini coefficient function
 '''
 from pl_curve import calculate_gini
+from pytest import approx
 import pandas as pd
 import math
 
@@ -20,15 +21,15 @@ def test_gini_single():
     the coefficient should be zero as there's no variation
     '''
     gini = calculate_gini(pd.Series([1.0]))
-    assert gini == 0.0
+    assert gini == approx(0.0)
 
 def test_gini_four():
     '''test calculating a gini coefficient with four different items'''
     gini = calculate_gini(pd.Series([1.0, 2.0, 3.0, 4.0]))
-    assert gini == 0.25
+    assert gini == approx(0.25)
 
 
 def test_gini_four_even():
     '''test calculating a gini coefficient with four identical items'''
     gini = calculate_gini(pd.Series([1.0, 1.0, 1.0, 1.0]))
-    assert gini == 0.0
+    assert gini == approx(0.0)

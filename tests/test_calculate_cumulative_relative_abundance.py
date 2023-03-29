@@ -2,7 +2,7 @@
 from pl_curve import calculate_cumulative_relative_abundance
 import pandas
 import numpy as np
-
+from pytest import approx
 
 def test_calculate_cumulative_relative_abundance():
 
@@ -31,8 +31,8 @@ def test_calculate_cumulative_relative_abundance():
     assert 'Cum Rel Abund' in df1_res.columns
     assert 'Cum Rel Abund' in df2_res.columns
 
-    assert df1_res.loc['219', 'Cum Rel Abund'] == 0.239709
-    assert df1_res.loc['218', 'Cum Rel Abund'] == 0.430695
+    assert df1_res.loc['219', 'Cum Rel Abund'] == approx(0.239709)
+    assert df1_res.loc['218', 'Cum Rel Abund'] == approx(0.430695)
 
-    assert df2_res.loc['219', 'Cum Rel Abund'] == 0.434289
-    assert df2_res.loc['218', 'Cum Rel Abund'] == 0.628124
+    assert df2_res.loc['219', 'Cum Rel Abund'] == approx(0.434289)
+    assert df2_res.loc['218', 'Cum Rel Abund'] == approx(0.628124)

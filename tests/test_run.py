@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pl_curve import run
+from pytest import approx
 import pandas
 import os
 
@@ -31,7 +32,7 @@ def test_run():
     assert os.path.isfile("test.png") is True
 
     data = pandas.read_csv("test.tsv", delimiter='\t', index_col=0)
-    assert data.loc['Step I', 'Gini'] == 0.0
-    assert data.loc['Step I', 'Corrected Gini'] == 0.0
-    assert data.loc['Step II', 'Gini'] == 0.2
-    assert data.loc['Step II', 'Corrected Gini'] == 0.4
+    assert data.loc['Step I', 'Gini'] == approx(0.0)
+    assert data.loc['Step I', 'Corrected Gini'] == approx(0.0)
+    assert data.loc['Step II', 'Gini'] == approx(0.2)
+    assert data.loc['Step II', 'Corrected Gini'] == approx(0.4)
