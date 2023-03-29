@@ -16,7 +16,7 @@ jobs:
    #checkout the code, checkout@v3 means version 3 of the checkout command
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     #install all the dependencies specified in requirements.txt
