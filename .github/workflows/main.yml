@@ -13,8 +13,8 @@ jobs:
 
     steps:
 
-   #checkout the code, checkout@v2 means version 2 of the checkout command
-    - uses: actions/checkout@v2
+   #checkout the code, checkout@v3 means version 3 of the checkout command
+    - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
